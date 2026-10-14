@@ -1,0 +1,8 @@
+datasets
+transformers
+torch
+accelerate
+requests
+pandas
+scipy
+matplotlib
