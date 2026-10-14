@@ -131,6 +131,9 @@ def main() -> None:
         "![Accuracy and validity by model](../figures/accuracy_validity.png)",
         "",
         "## Accuracy by model",
+        "A trace counts as correct only when its answer matches the ground truth and follows "
+        "consistently from its own steps (see the README).",
+        "",
         fmt(acc_m, "model"),
         "",
         "## Well-formed traces by model",

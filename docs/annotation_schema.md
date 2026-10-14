@@ -29,7 +29,7 @@ The full annotated sets are in [`examples/`](examples/).
 
 | Field | Values | Meaning |
 |---|---|---|
-| `model_answer_is_correct` | yes / no | Final answer matches the ground truth. A trace with no explicit final answer counts as incorrect. |
+| `model_answer_is_correct` | yes / no | The final answer matches the ground truth **and** follows consistently from the trace's own steps. A matching letter reached through reasoning that does not support it counts as incorrect, as does a trace with no explicit final answer. |
 | `trace_is_valid` | yes / no | The trace follows the requested format: numbered steps, every option addressed, one final `Solution:` line. |
 | `annotation_confidence` | high / medium / low | How sure the annotator is that the explicit list is complete and faithful. |
 | `annotator_notes` | free text | Reason for a validity failure or anything unusual. |

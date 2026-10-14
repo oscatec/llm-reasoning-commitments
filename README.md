@@ -22,7 +22,7 @@ The motivation is practical. A model can land on the right answer through reason
 
 These come from 50 traces, so the intervals are wide and the findings are descriptive. Details and caveats are in [`analysis/results.md`](analysis/results.md).
 
-**Model size matters more for accuracy than for format.** Qwen3.6 27B answered 22 of 23 questions correctly; the two 7 to 8B models were around 60%. Llama 3.1 8B, however, followed the requested format almost as reliably as the larger model.
+**Model size matters more for accuracy than for format.** Accuracy here means a correct answer reached through consistent reasoning (see the note below). Qwen3.6 27B answered 22 of 23 questions correctly; the two 7 to 8B models were around 60%. Llama 3.1 8B, however, followed the requested format almost as reliably as the larger model.
 
 **Qwen2.5 7B struggles with the output format.** 5 of its 13 traces were malformed, against 2 of 37 for the other two models combined (Fisher p = 0.009). The typical failure was copying the literal label "Step n" from the prompt template instead of numbering its last step.
 
@@ -55,7 +55,13 @@ This started as my contribution to a course-wide study at the University of Gron
 
 ## Limitations
 
-The sample is small and was not designed as a balanced experiment: models, subjects and prompting modes are unevenly represented, and all annotations come from a single annotator, so there is no inter-annotator agreement. Three Llama traces ended without an explicit final answer and are counted as incorrect even where the conclusion in the last step matches the ground truth, which slightly understates its accuracy.
+The sample is small and was not designed as a balanced experiment: models, subjects and prompting modes are unevenly represented, and all annotations come from a single annotator, so there is no inter-annotator agreement.
+
+## A note on what "correct" means here
+
+Correctness is judged on the reasoning, not only on the final letter. A trace counts as correct when its conclusion follows consistently from its own steps and matches the ground truth. Reasoning that is wrong can still stumble onto the right option for the wrong reasons, and that does not meet the consistency requirement this study is about.
+
+One Llama 3.1 8B trace shows this. The question asks which item is *not* found in normal somatic cells of a human male, and the last step names Choice_B, the ground truth. But the eliminations that lead there are built on garbled double negatives (options are dismissed as "not typically NOT found"), so the steps do not actually establish why the other options fail, and the trace never commits to a final `Solution:` line. The right letter is reached without reasoning that supports it, so the trace is labelled incorrect. Scoring by letter alone would have counted it as a success.
 
 Questions and options come from Mr-Ben (Zeng et al., 2024).
 
